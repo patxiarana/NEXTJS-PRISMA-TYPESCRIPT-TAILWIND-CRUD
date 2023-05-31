@@ -7,18 +7,42 @@ interface FormData {
   id: string ,
 }
 
-
-
-
-
-
 export default function Home() {
 const [form, setForm] = useState<FormData>({title:'' , content:'', id: ''});
+
+
+async function create (data: FormData) {
+  try{
+   fetch('http://localhost:3000/api/create',{
+    body: JSON.stringify(data) ,
+    headers: {
+      'Content-type': 'application/json'
+    },
+    method: 'POST'
+
+   }).then(() => setForm({title: '', content: '', id: '',}))
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+
+const handleSubmit = async (data:FormData) => { 
+try {
+  create(data)
+} catch (error) {
+  console.log(error) ; 
+}
+}
+
+
+
  return (
     <div>
       <h1 className='text-center font-bold text-2x1 mt-4'>Notes</h1>
       <form onSubmit={e => {
         e.preventDefault()
+        handleSubmit(form)
       }} className='w-auto min-w-[%25] max-w-min mx-auto space-y-6 flex flex-col item-strech'>
 
      <input type="text" 

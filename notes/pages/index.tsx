@@ -14,9 +14,6 @@ interface Notes {
 
 }
 
-
-
-
 interface FormData {
   title:string , 
   content:string ,

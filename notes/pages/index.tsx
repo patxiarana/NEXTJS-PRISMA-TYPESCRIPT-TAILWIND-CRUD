@@ -52,6 +52,27 @@ async function create (data: FormData) {
 }
 
 
+async function deleteNote(id:string) {
+try {
+  fetch(`http://localhost:3000/api/notes/${id}`, {
+    headers : {
+      "Content-Type": "application/json",
+    },
+    method:'DELETE'
+  }).then(() => {
+   refreshData()
+  })
+} catch (error) {
+  console.log(error)
+  
+}
+
+
+}
+
+
+
+
 const handleSubmit = async (data:FormData) => { 
 try {
   create(data)
@@ -94,6 +115,7 @@ try {
                   <h3 className="font-bold">{note.title}</h3>
                   <p className="text-sm">{note.content}</p>
                 </div>
+                <button onClick={() => deleteNote(note.id)} className="bg-red-500 px-3 text-white rounded">X</button>
               </div>
             </li>
           ))}
